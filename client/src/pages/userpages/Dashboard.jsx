@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 import { toast } from "react-toastify";
+import { Navibar } from "../../components/userComponents/Navibar";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const { token, logout, API } = useAuth();
+  const { token,  API } = useAuth();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -36,31 +37,36 @@ export const Dashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
 
   return (
-    <div>
-      <header>
-        <h1>Welcome to Your Dashboard</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </header>
+    <section className="section-services">
+      <Navibar/>
+      <div className="container">
+        <h1 className="main-heading">Dashboard. </h1>
+      </div>
+       
+       
+      
+
       <main>
         <section>
-          <h2>Your Details</h2>
+         
           {userData ? (
             <div>
-              <p><strong>Username:</strong> {userData.username}</p>
-              <p><strong>Email:</strong> {userData.email}</p>
-              <p><strong>Phone:</strong> {userData.phone}</p>
+             <p style={{fontSize:'25px'}}> Welcome back, {userData.username}👋</p>
+              <p>
+                Email: {userData.email}
+              </p>
+            
+              <p>
+                Phone: {userData.phone}
+              </p>
             </div>
           ) : (
             <p>Loading...</p>
           )}
         </section>
       </main>
-    </div>
+    </section>
   );
 };

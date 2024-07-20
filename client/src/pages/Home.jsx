@@ -11,10 +11,10 @@ export const Home = () => {
       
         <section className="section-hero">
           <div className="container grid grid-two-cols">
-            <div className="hero-content">
+            <div className="hero-content ">
               <p>We are an amazing Social Service Company</p>
               <h1>Welcome to Fame Social</h1>
-              <p>
+              <p >
                 Ready to elevate your business with top-notch Social Media
                 Engagements? Look no further! At Fame Social, we excel in
                 delivering state-of-the-art SMM solutions designed to enhance
