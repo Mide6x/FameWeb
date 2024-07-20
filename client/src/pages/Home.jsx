@@ -7,14 +7,12 @@ export const Home = () => {
         <section className="section-hero">
           <div className="container grid grid-two-cols">
             <div className="hero-content">
-              <p>We are the World Best IT Company</p>
-              <h1>Welcome to Fame Technical</h1>
-              <p>
-                Are you ready to take your business to the next level with
-                cutting-edge IT solutions? Look no further! At Fame Technical,
-                we specialize in providing innovative IT services and solutions
-                tailored to meet your unique needs.
-              </p>
+            <p>We are an amazing Social Service Company</p>
+<h1>Welcome to Fame Social</h1>
+<p>
+  Ready to elevate your business with top-notch Social Media Management Systems? Look no further! At Fame Social, we excel in delivering state-of-the-art SMMS solutions designed to enhance your online presence and drive business growth. Our tailored services are crafted to meet your unique needs and propel your brand forward in the digital landscape.
+</p>
+
               <div className="btn btn-group">
                 <a href="/contact">
                   <button className="btn">connect now</button>
@@ -60,7 +58,7 @@ export const Home = () => {
             <p>
               Ready to take the first step towards a more efficient and secure
               IT infrastructure? Contact us today for a free consultation and
-              lets discuss how Fame Technical can help your business thrive in
+              lets discuss how Fame Social can help your business thrive in
               the digital age.
             </p>
             <div className="btn btn-group">
