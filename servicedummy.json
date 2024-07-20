@@ -1,0 +1,33 @@
+[
+    {
+      "service": "Web Development",
+      "description": "Full-stack web development including frontend and backend.",
+      "price": "2000 USD",
+      "provider": "Tech Solutions Inc."
+    },
+    {
+      "service": "Graphic Design",
+      "description": "Custom graphic design services including logos and branding.",
+      "price": "1000 USD",
+      "provider": "Creative Minds"
+    },
+    {
+      "service": "SEO Optimization",
+      "description": "Search engine optimization services to improve website ranking.",
+      "price": "800 USD",
+      "provider": "SEO Experts"
+    },
+    {
+      "service": "Digital Marketing",
+      "description": "Comprehensive digital marketing strategies and execution.",
+      "price": "1500 USD",
+      "provider": "Market Leaders"
+    },
+    {
+      "service": "Content Writing",
+      "description": "Professional content writing services for websites and blogs.",
+      "price": "500 USD",
+      "provider": "Content Creators"
+    }
+  ]
+  

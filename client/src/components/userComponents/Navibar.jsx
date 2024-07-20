@@ -20,6 +20,9 @@ export const Navibar = () => {
               <li>
                 <NavLink to="/orders"> Orders </NavLink>
               </li>
+              <li>
+                <NavLink to="/payments"> Payments </NavLink>
+              </li>
               {isLoggedIn ? (
                 <li>
                   <NavLink to="/logout">Logout</NavLink>
