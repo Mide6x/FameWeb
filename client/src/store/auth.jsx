@@ -10,25 +10,19 @@ export const AuthProvider = ({ children }) => {
   const [services, setServices] = useState([]);
   const authorizationToken = `Bearer ${token}`;
 
- const API = "http://localhost:5001";
+  const API = "http://localhost:5001";
   // const API = "https://api.Fame.site";
   // const API = import.meta.env.VITE_APP_URI_API;
 
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
-    return localStorage.setItem("token", serverToken);
+    localStorage.setItem("token", serverToken);
   };
 
-  let isLoggedIn = !!token;
-  console.log("isLoggedIN ", isLoggedIn);
-
-  // tackling the logout functionality
-  const LogoutUser = () => {
+  const logout = () => {
     setToken("");
-    return localStorage.removeItem("token");
+    localStorage.removeItem("token");
   };
-
-  // JWT AUTHENTICATION - to get the currently loggedIN user data
 
   const userAuthentication = async () => {
     try {
@@ -42,19 +36,17 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("user data ", data.userData);
         setUser(data.userData);
-        setIsLoading(false);
       } else {
         console.error("Error fetching user data");
-        setIsLoading(false);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching user data");
+      setIsLoading(false);
     }
   };
 
-  // to fetch the services data from the database
   const getServices = async () => {
     try {
       const response = await fetch(`${API}/api/data/service`, {
@@ -63,7 +55,6 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.msg);
         setServices(data.msg);
       }
     } catch (error) {
@@ -76,14 +67,13 @@ export const AuthProvider = ({ children }) => {
     userAuthentication();
   }, []);
 
-  //please subs to Fame Social channel .. also world best js course is coming soon
-
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn,
+        token,
+        isLoggedIn: !!token,
         storeTokenInLS,
-        LogoutUser,
+        logout,
         user,
         services,
         authorizationToken,
