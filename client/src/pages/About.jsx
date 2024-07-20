@@ -1,15 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { Analytics } from "../components/Analytics";
 import { useAuth } from "../store/auth";
-import {Navbar} from "../components/Navbar"
-import {Footer} from "../components/Footer/Footer"
-
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer/Footer";
 
 export const About = () => {
   const { user } = useAuth();
   return (
     <>
-     <Navbar/>
+      <Navbar />
       <main>
         <section className="section-hero">
           <div className="container grid grid-two-cols">
@@ -61,9 +59,7 @@ export const About = () => {
           </div>
         </section>
       </main>
-
-      <Analytics />
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -27,7 +27,7 @@ export const Home = () => {
                 <a href="/contact">
                   <button className="btn">connect now</button>
                 </a>
-                <a href="/services">
+                <a href="/about">
                   <button className="btn secondary-btn">learn more</button>
                 </a>
               </div>
@@ -38,8 +38,8 @@ export const Home = () => {
               <img
                 src="/images/home.png"
                 alt="coding together"
-                width="400"
-                height="500"
+                width="200"
+                height="250"
               />
             </div>
           </div>
