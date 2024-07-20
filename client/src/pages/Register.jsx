@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../store/auth";
+import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
+import {Navbar} from "../components/Navbar"
+import {Footer} from "../components/Footer/Footer"
 
 export const Register = () => {
   const [user, setUser] = useState({
@@ -62,6 +64,7 @@ export const Register = () => {
 
   return (
     <>
+     <Navbar/>
       <section>
         <main>
           <div className="section-registration">
@@ -146,6 +149,7 @@ export const Register = () => {
           </div>
         </main>
       </section>
+      <Footer/>
     </>
   );
 };

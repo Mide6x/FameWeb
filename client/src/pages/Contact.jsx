@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../store/auth";
+import {Navbar} from "../components/Navbar"
+import {Footer} from "../components/Footer/Footer"
+
 
 const defaultContactFormData = {
   username: "",
@@ -62,6 +65,7 @@ export const Contact = () => {
 
   return (
     <>
+     <Navbar/>
       <section className="section-contact">
         <div className="contact-content container">
           <h1 className="main-heading">contact us</h1>
@@ -124,6 +128,7 @@ export const Contact = () => {
 
        
       </section>
+      <Footer/>
     </>
   );
 };

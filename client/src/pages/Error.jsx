@@ -1,8 +1,12 @@
 import { NavLink } from "react-router-dom";
+import {Navbar} from "../components/Navbar"
+import {Footer} from "../components/Footer/Footer"
+
 
 export const Error = () => {
   return (
     <>
+     <Navbar/>
       <section id="error-page">
         <div className=" content">
           <h2 className="header">404</h2>
@@ -18,6 +22,7 @@ export const Error = () => {
           </div>
         </div>
       </section>
+      <Footer/>
     </>
   );
 };
