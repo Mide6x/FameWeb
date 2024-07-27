@@ -1,14 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const mongoose = require("mongoose");
 const authRoute = require("./router/auth-router");
 const contactRoute = require("./router/contact-router");
 const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
-const connectDb = require("./utils/db");
+const categoryRoute = require('./router/category-router');
 const errorMiddleware = require("./middlewares/error-middleware");
 
+const app = express();
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -23,22 +24,36 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
+app.use('/api/categories', categoryRoute);
 
-// Mount the Router: To use the router in your main Express app, you can "mount" it at a specific URL prefix
+// Connect to MongoDB
+const connectDb = async () => {
+  try {
+    const URI = process.env.MONGODB_URI;
+    await mongoose.connect(URI);
+    console.log("Connection successful to DB");
+  } catch (error) {
+    console.error("Database connection failed", error);
+    process.exit(1);
+  }
+};
+
+// Mount the Routers
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
 app.use("/api/data", serviceRoute);
-
-// let's define admin route
 app.use("/api/admin", adminRoute);
 
 app.use(errorMiddleware);
 
-const PORT = 5001;
-connectDb().then(() => {
+const PORT = process.env.PORT || 5001;
+
+const startServer = async () => {
+  await connectDb();
   app.listen(PORT, () => {
-    console.log(`server is running at port: ${PORT}`);
+    console.log(`Server is running on port: ${PORT}`);
   });
-});
+};
+
+startServer();

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 import { toast } from "react-toastify";
 import { Navibar } from "../../components/userComponents/Navibar";
-import './styles.css';
+import "./styles.css";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -11,16 +11,16 @@ export const Dashboard = () => {
   const [userData, setUserData] = useState(null);
   const [categories, setCategories] = useState([]);
   const [services, setServices] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedService, setSelectedService] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedService, setSelectedService] = useState("");
   const [formData, setFormData] = useState({
-    description: '',
-    link: '',
-    quantityMin: '',
-    quantityMax: '',
-    quantity: '',
-    averageTime: '',
-    charge: '',
+    description: "",
+    link: "",
+    quantityMin: "",
+    quantityMax: "",
+    quantity: "",
+    averageTime: "",
+    charge: "",
   });
 
   useEffect(() => {
@@ -71,16 +71,33 @@ export const Dashboard = () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    const categoryId = e.target.value;
+    setSelectedCategory(categoryId);
+    fetchServices(categoryId); // Use category ID to fetch services
+    setSelectedService("");
+    setFormData((prev) => ({
+      ...prev,
+      description: "",
+      quantityMin: "",
+      quantityMax: "",
+    }));
+  };
+
   const fetchServices = async (categoryId) => {
     try {
+      console.log(`Fetching services for categoryId: ${categoryId}`);
       const response = await fetch(`${API}/api/services/${categoryId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
+      console.log(`Response status: ${response.status}`);
+      const result = await response.json();
+      console.log("Response data:", result);
+
       if (response.ok) {
-        const result = await response.json();
         setServices(result.services || []);
       } else {
         toast.error("Failed to fetch services");
@@ -90,26 +107,19 @@ export const Dashboard = () => {
     }
   };
 
-  const handleCategoryChange = (e) => {
-    const categoryId = e.target.value;
-    setSelectedCategory(categoryId);
-    fetchServices(categoryId);
-    setSelectedService('');
-    setFormData((prev) => ({
-      ...prev,
-      description: '',
-      quantityMin: '',
-      quantityMax: '',
-    }));
-  };
-
   const handleServiceChange = (e) => {
     const serviceId = e.target.value;
     setSelectedService(serviceId);
-    // Assuming description and quantity min/max are fetched based on the service
-    // You need to fetch this data from your API or adjust accordingly
-    // Example:
-    // fetchServiceDetails(serviceId);
+    const selectedService = services.find((svc) => svc.id === serviceId);
+
+    if (selectedService) {
+      setFormData((prev) => ({
+        ...prev,
+        description: selectedService.description,
+        quantityMin: selectedService.quantityMin,
+        quantityMax: selectedService.quantityMax,
+      }));
+    }
   };
 
   const handleQuantityChange = (e) => {
@@ -149,42 +159,58 @@ export const Dashboard = () => {
         <section>
           {userData ? (
             <>
-              <p style={{ fontSize: '25px' }}>Welcome back, {userData.username}👋</p>
+              <p style={{ fontSize: "25px" }}>
+                Welcome back, {userData.username}👋
+              </p>
               <p>Email: {userData.email}</p>
               <p>Phone: {userData.phone}</p>
 
               <div className="dashboard-container">
                 <div className="dashboard-item">
                   <h2>Account Balance</h2>
-                  <p>${userData.balance || 'N/A'}</p>
+                  <p>${userData.balance || "N/A"}</p>
                 </div>
                 <div className="dashboard-item">
                   <h2>Total Orders</h2>
-                  <p>{userData.totalOrders || 'N/A'}</p>
+                  <p>{userData.totalOrders || "N/A"}</p>
                 </div>
                 <div className="dashboard-item">
                   <h2>Account Status</h2>
-                  <p>{userData.status || 'N/A'}</p>
+                  <p>{userData.status || "N/A"}</p>
                 </div>
               </div>
 
               <form onSubmit={handleSubmit} className="dynamic-form">
                 <div className="form-group">
                   <label htmlFor="category">Category</label>
-                  <select id="category" value={selectedCategory} onChange={handleCategoryChange} required>
+                  <select
+                    id="category"
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                    required
+                  >
                     <option value="">Select a category</option>
                     {categories.map((cat) => (
-                      <option key={cat.id} value={cat.id}>{cat.name}</option>
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="service">Service</label>
-                  <select id="service" value={selectedService} onChange={handleServiceChange} required>
+                  <select
+                    id="service"
+                    value={selectedService}
+                    onChange={handleServiceChange}
+                    required
+                  >
                     <option value="">Select a service</option>
                     {services.map((svc) => (
-                      <option key={svc.id} value={svc.id}>{svc.name}</option>
+                      <option key={svc.id} value={svc.id}>
+                        {svc.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -205,7 +231,9 @@ export const Dashboard = () => {
                     id="link"
                     type="url"
                     value={formData.link}
-                    onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, link: e.target.value })
+                    }
                     required
                   />
                 </div>
