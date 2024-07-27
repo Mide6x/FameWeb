@@ -9,11 +9,9 @@ const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 
-// let's tackle cors
+
 const corsOptions = {
-  // origin: "http://localhost:5173",
   origin: (origin, callback) => {
-    // Check if the origin is allowed
     const allowedOrigins = [
       "http://localhost:5173",
     ];
